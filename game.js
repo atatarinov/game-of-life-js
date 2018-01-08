@@ -56,7 +56,6 @@ let gameOfLife = {
         }
       }
     }
-    //console.log("wont you be my neighbor?", neighbors)
     return neighbors;
   },
 
@@ -96,6 +95,10 @@ let gameOfLife = {
 
     window.board.addEventListener('click', (e) => onCellClick.call(e.target));
     window.step_btn.addEventListener('click', () => this.step());
+    window.play_btn.addEventListener('click', () => this.enableAutoPlay());
+    window.clear_btn.addEventListener('click', () => this.clear());
+    window.reset_btn.addEventListener('click', () => this.randomize());
+
   },
 
   step: function () {
@@ -108,7 +111,29 @@ let gameOfLife = {
   },
 
   enableAutoPlay: function () {
+    if (this.stepInterval) {
+      clearInterval(this.stepInterval);
+      this.stepInterval = null;
+    } else {
+      this.stepInterval = setInterval(() => this.step(), 500);
+    }
+  },
 
+  clear: function() {
+    if (this.stepInterval) {
+      clearInterval(this.stepInterval);
+      this.stepInterval = null;
+    }
+
+    this.applyState(new Array(this.width).fill('placeholder').map(el => []));
+  },
+
+  randomize: function() {
+    let randomState = new Array(this.width).fill('placeholder')
+      .map(el => new Array(this.height).fill('placeholder')
+        .map(cell => Math.random() <= 0.5)
+      );
+    this.applyState(randomState);
   }
 
 };

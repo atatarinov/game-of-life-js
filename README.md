@@ -1,4 +1,3 @@
-# Game of Life in JS
+# Game of Life in Vanilla JS
 
-Fullstack Academy workshop.
 

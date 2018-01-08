@@ -1,8 +1,8 @@
 'use strict';
 
 let gameOfLife = {
-  width: 12,
-  height: 12,
+  width: 20,
+  height: 20,
   stepInterval: null,
 
   createAndShowBoard: function () {
@@ -10,11 +10,11 @@ let gameOfLife = {
 
     let tablehtml = '';
     for (let h = 0; h < this.height; h++) {
-      tablehtml += "<tr id='row+" + h + "'>";
+      tablehtml += `<tr id=row+${h}>`;
       for (let w = 0; w < this.width; w++) {
-        tablehtml += "<td data-status='dead' id='" + w + "-" + h + "'></td>";
+        tablehtml += `<td data-status=dead id=${w}-${h}></td>`;
       }
-      tablehtml += "</tr>";
+      tablehtml += '</tr>';
     }
     goltable.innerHTML = tablehtml;
 
@@ -114,8 +114,10 @@ let gameOfLife = {
     if (this.stepInterval) {
       clearInterval(this.stepInterval);
       this.stepInterval = null;
+      window.play_btn.innerText = 'Play';
     } else {
       this.stepInterval = setInterval(() => this.step(), 500);
+      window.play_btn.innerText = 'Stop';
     }
   },
 
@@ -123,8 +125,8 @@ let gameOfLife = {
     if (this.stepInterval) {
       clearInterval(this.stepInterval);
       this.stepInterval = null;
+      window.play_btn.innerText = 'Play';
     }
-
     this.applyState(new Array(this.width).fill('placeholder').map(el => []));
   },
 
